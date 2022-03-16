@@ -7,8 +7,14 @@ package vista;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import dominio.modelo.*;
+import dominio.modelo.Cliente;
+import dominio.modelo.DatosEmpresa;
+import dominio.modelo.DetalleVenta;
+import dominio.modelo.Login;
 import dominio.controlador.*;
+import dominio.modelo.Producto;
+import dominio.modelo.Proveedor;
+import dominio.modelo.Venta;
 import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -29,7 +35,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class SistemaForm extends javax.swing.JFrame {
 
     Login login = new Login();
-    
+
     Cliente cliente = new Cliente();
     ControladorCliente controladorCliente = new ControladorCliente();
 
@@ -43,13 +49,13 @@ public class SistemaForm extends javax.swing.JFrame {
     Venta venta = new Venta();
     DetalleVenta detalleVenta = new DetalleVenta();
     ControladorVenta controladorVenta = new ControladorVenta();
-    
+
     ControladorEventos controladorEventos = new ControladorEventos();
 
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultTableModel temporal = new DefaultTableModel();
-    
-    
+
+
 
     //
     int item;
@@ -61,12 +67,12 @@ public class SistemaForm extends javax.swing.JFrame {
     public SistemaForm() {
         initComponents();
     }
-    
+
     public SistemaForm(Login privilegios){
         initComponents();
         //Centrar la venta en la pantalla
         this.setLocationRelativeTo(null);
-        
+
         controladorProducto.consultarProveedor(jComboBox_ProveedorProducto_Tab4);
         AutoCompleteDecorator.decorate(jComboBox_ProveedorProducto_Tab4);
 
@@ -80,7 +86,7 @@ public class SistemaForm extends javax.swing.JFrame {
         jTextField_IDVenta_Tab5.setVisible(false);
         jTextField_Id_Empresa.setVisible(false);
         jLabel_NombreVendedor.setVisible(false);
-        
+
         jLabel_NombreVendedor.setText(login.getNombre());
 
         listarDatos();
@@ -298,9 +304,9 @@ public class SistemaForm extends javax.swing.JFrame {
             int stockActual = producto.getCantidad() - cantidad;
 
             controladorVenta.actualizarStock(stockActual, codigo);
-            
+
              if (controladorVenta.alerta(codigo)) {
-                JOptionPane.showMessageDialog(null, "Debe realizar una nueva compra del producto " 
+                JOptionPane.showMessageDialog(null, "Debe realizar una nueva compra del producto "
                         + codigo, " Advertencia ",2);
                 jTabbedPane1.setSelectedIndex(2);
             }
@@ -350,7 +356,7 @@ public class SistemaForm extends javax.swing.JFrame {
         jTextField_PrecioCompra_Tab4.setText("");
         jComboBox_ProveedorProducto_Tab4.setSelectedItem(null);
     }
-    
+
     public void limpiarTextFieldDatosEmpresa(){
         jTextField_NIT_Empresa.setText("");
         jTextField_Nombre_Empresa.setText("");
@@ -432,7 +438,7 @@ public class SistemaForm extends javax.swing.JFrame {
         }
         jTable_Productos.setModel(modelo);
     }
-    
+
     private void listarVentasForm() {
         List<Venta> listaVentas = controladorVenta.listarVentas();
         modelo = (DefaultTableModel) jTable_Ventas.getModel();
@@ -2086,7 +2092,7 @@ public class SistemaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_DocumentoCliente_Tab1KeyTyped
 
     private void jButton_Guardar_DatosEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Guardar_DatosEmpresaActionPerformed
-        
+
             if (!"".equals(jTextField_NIT_Empresa.getText())
                     && !"".equals(jTextField_Nombre_Empresa.getText())
                     && !"".equals(jTextField_Telefono_Empresa.getText())
@@ -2107,7 +2113,7 @@ public class SistemaForm extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos estan vacios");
             }
-        
+
     }//GEN-LAST:event_jButton_Guardar_DatosEmpresaActionPerformed
 
     private void jButton_InformaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_InformaciónActionPerformed
@@ -2126,7 +2132,7 @@ public class SistemaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable_VentasMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         try {
             int id = Integer.parseInt(jTextField_IDVenta_Tab5.getText());
             File file = new File("src/pdf/venta" + id + ".pdf");
@@ -2134,8 +2140,8 @@ public class SistemaForm extends javax.swing.JFrame {
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(SistemaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -2145,7 +2151,7 @@ public class SistemaForm extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

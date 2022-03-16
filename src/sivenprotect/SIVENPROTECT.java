@@ -7,5 +7,4 @@ public class SIVENPROTECT {
 		LoginForm login = new LoginForm();
 		login.setVisible(true);
 	}
-
 }
