@@ -23,7 +23,7 @@ public class ProductoDAO {
     ConexionBD conexion = new ConexionBD();
     PreparedStatement preparedStatement;
     ResultSet resultSet;
-    
+
     public boolean registrarProducto(Producto producto) {
         String sql = "INSERT INTO productos(codigoProducto, nombre, cantidad, "
                 + "precioVenta, precioCompra, proveedor) VALUES(?,?,?,?,?,?)";
@@ -57,15 +57,15 @@ public class ProductoDAO {
             }
         }
     }
-    
+
     public void consultarProveedor(JComboBox proveedor){
         String sql = "SELECT nombre FROM proveedores";
-        
+
         try{
             connection = conexion.getConexion();
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
-            
+
             while(resultSet.next()){
                 proveedor.addItem(resultSet.getString("nombre"));
             }
@@ -73,9 +73,9 @@ public class ProductoDAO {
             System.out.println(e.toString());
         }
     }
-    
-    public List listarProductos() {
-        List<Producto> listaProductos = new ArrayList();
+
+    public List<Producto> listarProductos() {
+        List<Producto> listaProductos = new ArrayList<>();
         String sql = "SELECT * FROM productos";
 
         try {
@@ -110,7 +110,7 @@ public class ProductoDAO {
         }
         return listaProductos;
     }
-    
+
     public boolean eliminarProducto(int id) {
         String sql = "DELETE FROM productos WHERE id = ?";
 
@@ -136,7 +136,7 @@ public class ProductoDAO {
             }
         }
     }
-    
+
     public boolean actualizarProducto(Producto producto){
         String sql = "UPDATE productos SET codigoProducto = ?, nombre = ?, cantidad = ?,"
                 + "precioVenta = ?, precioCompra = ?, proveedor = ? WHERE id = ?";
@@ -173,53 +173,53 @@ public class ProductoDAO {
 
         }
     }
-    
+
     public Producto buscarProducto(String codigo){
         Producto producto = new Producto();
         String sql = "SELECT * FROM productos WHERE codigoProducto = ?";
-        
+
         try{
             connection = conexion.getConexion();
             preparedStatement = connection.prepareStatement(sql);
-            
+
             preparedStatement.setString(1, codigo);
             resultSet = preparedStatement.executeQuery();
-            
+
             if(resultSet.next()){
                 producto.setNombreProducto(resultSet.getString("nombre"));
                 producto.setPrecioVenta(resultSet.getFloat("precioVenta"));
                 producto.setCantidad(resultSet.getInt("cantidad"));
-                
+
             }
         } catch(SQLException e){
             System.out.println(e.toString());
         }
         return producto;
     }
-    
+
     public DatosEmpresa buscarDatos(){
         DatosEmpresa datos = new DatosEmpresa();
         String sql = "SELECT * FROM config";
-        
+
         try{
             connection = conexion.getConexion();
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
-            
+
             if(resultSet.next()){
                 datos.setId(resultSet.getInt("id"));
                 datos.setNit(resultSet.getString("nit"));
                 datos.setNombre(resultSet.getString("nombre"));
                 datos.setTelefono(resultSet.getString("telefono"));
                 datos.setDireccion(resultSet.getString("direccion"));
-                
+
             }
         } catch(SQLException e){
             System.out.println(e.toString());
         }
         return datos;
     }
-    
+
     public boolean actualizarDatos(DatosEmpresa datos){
         String sql = "UPDATE config SET nombre = ?, nit = ?, telefono = ?, direccion = ? WHERE id = ?";
 
@@ -253,6 +253,6 @@ public class ProductoDAO {
 
         }
     }
-    
-    
+
+
 }

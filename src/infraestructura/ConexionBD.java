@@ -10,27 +10,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
  * @author Personal
  */
 public class ConexionBD {
 
-    Connection connetion;
-
-    public Connection getConexion() {
-        try {
-            String dataBase = "jdbc:mysql://localhost:3306/sivenprotec?serverTimezone=UTC";
-
-            /**
-             * Establece la conexión entre la base de datos
-             */
-            connetion = DriverManager.getConnection(dataBase, "root", "");
-
-            return connetion;
-
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-        }
-        return null;
-    }
+	/**
+	 * Establece la conexión entre la base de datos
+	 */
+	public Connection getConexion() {
+		Connection result = null;
+		try {
+			result = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/sivenprotec?serverTimezone=UTC",
+				"root",
+				""
+			);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
