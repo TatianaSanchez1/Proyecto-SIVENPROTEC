@@ -20,13 +20,20 @@ import java.util.List;
  */
 public class VentaDAO {
 
-	private Connection connection;
+	private static VentaDAO instance;
 	private final ConexionBD conexion = new ConexionBD();
+	int resultado;
+	private Connection connection;
 	private PreparedStatement preparedStatement;
 
-	int resultado;
+	private VentaDAO() {
+	}
 
-	public VentaDAO() {
+	public static VentaDAO getInstance() {
+		if (instance == null) {
+			instance = new VentaDAO();
+		}
+		return instance;
 	}
 
 	public int registrarVenta(Venta venta) {
@@ -56,7 +63,7 @@ public class VentaDAO {
 	}
 
 	public int registrarDetalle(DetalleVenta detalle) {
-		String sql = "INSERT INTO detalle(codigoProducto, cantidad, precio, idVenta) VALUES (?,?,?,?)";
+		String sql = "INSERT INTO detalle(codigoproducto, cantidad, precio, idventa) VALUES (?,?,?,?)";
 
 		try {
 			connection = conexion.getConexion();
@@ -83,27 +90,24 @@ public class VentaDAO {
 
 	}
 
-	public int idVenta() {
-		int id = 0;
+	public Integer idVenta() {
 		String sql = "SELECT MAX(id) FROM ventas";
-
 		try {
 			connection = conexion.getConexion();
 			preparedStatement = connection.prepareStatement(sql);
-
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
-				id = resultSet.getInt(1);
+				return resultSet.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return id;
+		return null;
 	}
 
 	public boolean actualizarStock(int cantidad, String codigo) {
-		String sql = "UPDATE productos SET cantidad = ? WHERE codigoProducto = ?";
+		String sql = "UPDATE productos SET cantidad = ? WHERE codigoproducto = ?";
 
 		try {
 			connection = conexion.getConexion();
@@ -163,31 +167,27 @@ public class VentaDAO {
 			ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
 			while (resultSet.next()) {
 				listaDetalleVentas.add(new DetalleVenta(
-                    resultSet.getInt("id"),
-                    resultSet.getString("codigoProducto"),
-                    resultSet.getInt("cantidad"),
-                    resultSet.getFloat("precio"),
-                    resultSet.getInt("idVenta")
-                ));
+					resultSet.getInt("id"),
+					resultSet.getString("codigoProducto"),
+					resultSet.getInt("cantidad"),
+					resultSet.getFloat("precio"),
+					resultSet.getInt("idVenta")
+				));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
-			/**
-			 * liberar cualquier otro recurso de la base de datos que la
-			 * conexión pueda estar reteniendo.
-			 */
 			try {
 				connection.close();
 			} catch (SQLException ex) {
-				System.out.println(ex.getMessage());
+				ex.printStackTrace();
 			}
 		}
 		return listaDetalleVentas;
 	}
 
 	public boolean alerta(String codigoProducto) {
-		String sql = "SELECT * FROM productos WHERE codigoProducto = ?";
+		String sql = "SELECT * FROM productos WHERE codigoproducto = ?";
 		try {
 			connection = conexion.getConexion();
 			preparedStatement = connection.prepareStatement(sql);
@@ -208,5 +208,29 @@ public class VentaDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public Venta buscarVenta(int idVenta) {
+		Venta venta = null;
+		String sql = "SELECT * FROM ventas WHERE id = ?";
+		try {
+			connection = conexion.getConexion();
+			preparedStatement = connection.prepareStatement(sql);
+
+			preparedStatement.setInt(1, idVenta);
+			var resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				venta = new Venta(
+					resultSet.getInt("id"),
+					resultSet.getString("cliente"),
+					resultSet.getString("vendedor"),
+					resultSet.getFloat("total")
+				);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return venta;
 	}
 }

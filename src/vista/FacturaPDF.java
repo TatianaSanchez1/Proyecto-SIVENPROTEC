@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dominio.modelo;
+package vista;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -17,7 +17,11 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import dominio.controlador.ControladorCliente;
+import dominio.controlador.ControladorProducto;
 import dominio.controlador.ControladorVenta;
+import dominio.controlador.StrategyFactura;
+import dominio.modelo.DatosEmpresa;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,7 +29,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FacturaPDF {
+public class FacturaPDF implements StrategyFactura {
 
 	//Todo
 	/*
@@ -33,13 +37,16 @@ public class FacturaPDF {
 	 * Utilizar patron Adapter para la libreria iText
 	 */
 
-/*	private void pdf() {
+	public void generarFactura() {
 		ControladorVenta controladorVenta = new ControladorVenta();
 		DatosEmpresa datosEmpresa = new DatosEmpresa();
-		Cliente datosCliente = new Cliente();
+
 		float totalPagar = 0.0f;
 		try {
 			int id = controladorVenta.idVenta();
+			var datosCliente = new ControladorCliente().buscarClientePorNombre(
+				new ControladorVenta().buscarVenta(id).getCliente()
+			);
 			FileOutputStream archivo;
 			File file = new File("src/pdf/venta" + id + ".pdf");
 
@@ -155,19 +162,17 @@ public class FacturaPDF {
 			tablaProductos.addCell(producto4);
 			tablaProductos.addCell(producto5);
 
-			for (int i = 0; i < jTable_Venta_Tab1.getRowCount(); i++) {
-				String codigo = jTable_Venta_Tab1.getValueAt(i, 0).toString();
-				String nombre = jTable_Venta_Tab1.getValueAt(i, 1).toString();
-				String cantidad = jTable_Venta_Tab1.getValueAt(i, 2).toString();
-				String precio = jTable_Venta_Tab1.getValueAt(i, 3).toString();
-				String precioTotal = jTable_Venta_Tab1.getValueAt(i, 4).toString();
-
-				tablaProductos.addCell(codigo);
-				tablaProductos.addCell(nombre);
-				tablaProductos.addCell(cantidad);
-				tablaProductos.addCell(precio);
-				tablaProductos.addCell(precioTotal);
-			}
+			var ventaController = new ControladorVenta();
+			var listaDetalles = ventaController.listarDetalleVentas(id);
+			var productController = new ControladorProducto();
+			listaDetalles.forEach(detalle -> {
+				var producto = productController.buscarProducto(detalle.getCodigoProducto());
+				tablaProductos.addCell(detalle.getCodigoProducto());
+				tablaProductos.addCell(producto.getNombreProducto());
+				tablaProductos.addCell(String.valueOf(detalle.getCantidad()));
+				tablaProductos.addCell(String.valueOf(producto.getPrecioVenta()));
+				tablaProductos.addCell(String.valueOf(detalle.getCantidad() * producto.getPrecioVenta()));
+			});
 
 			documento.add(tablaProductos);
 
@@ -187,7 +192,7 @@ public class FacturaPDF {
 			archivo.close();
 			Desktop.getDesktop().open(file);
 		} catch (DocumentException | IOException e) {
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
-	}*/
+	}
 }

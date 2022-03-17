@@ -2033,7 +2033,7 @@ public class SistemaForm extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!"".equals(jTextField_DocumentoCliente_Tab1.getText())) {
                 String documento = jTextField_DocumentoCliente_Tab1.getText();
-                cliente = controladorCliente.buscarCliente(documento);
+                cliente = controladorCliente.buscarClientePorDocumento(documento);
 
                 if (cliente.getNombreCliente() != null) {
                     jTextField_NombreCliente_Tab1.setText("" + cliente.getNombreCliente());
@@ -2054,7 +2054,7 @@ public class SistemaForm extends javax.swing.JFrame {
                 registrarVenta();
                 registrarDetalle();
                 actualizarStock();
-                pdf();
+                controladorVenta.generarFactura(new FacturaPDF());
                 limpiarTablaVenta();
                 limpiarTextFieldVentaCliente();
             } else {

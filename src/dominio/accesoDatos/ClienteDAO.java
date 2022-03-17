@@ -161,19 +161,19 @@ public class ClienteDAO {
 
         }
     }
-    
-    public Cliente buscarCliente(String documento){
+
+    public Cliente buscarClientePorDocumento(String documento){
         Cliente cliente = new Cliente();
-        
+
         String sql = "SELECT * FROM clientes WHERE documento = ?";
-        
+
         try{
             connection = conexion.getConexion();
             preparedStatement = connection.prepareStatement(sql);
-            
+
             preparedStatement.setString(1, documento);
             resultSet = preparedStatement.executeQuery();
-            
+
             if(resultSet.next()){
                 cliente.setNombreCliente(resultSet.getString("nombre"));
                 cliente.setNumTelCliente(resultSet.getString("telefono"));
@@ -183,6 +183,30 @@ public class ClienteDAO {
         } catch (SQLException e){
             System.out.println(e.toString());
         }
-        return cliente;    
+        return cliente;
+    }
+
+    public Cliente buscarClientePorNombre(String nombre){
+        Cliente cliente = new Cliente();
+
+        String sql = "SELECT * FROM clientes WHERE nombre = ?";
+
+        try{
+            connection = conexion.getConexion();
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                cliente.setNombreCliente(resultSet.getString("nombre"));
+                cliente.setNumTelCliente(resultSet.getString("telefono"));
+                cliente.setCorreoCliente(resultSet.getString("correo"));
+                cliente.setDireccionCliente(resultSet.getString("direccion"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return cliente;
     }
 }
