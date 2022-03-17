@@ -92,7 +92,7 @@ public class SistemaForm extends javax.swing.JFrame {
         listarDatos();
     }
 
-    private void pdf() {
+    /*private void pdf() {
         try {
             int id = controladorVenta.idVenta();
             FileOutputStream archivo;
@@ -104,7 +104,7 @@ public class SistemaForm extends javax.swing.JFrame {
             PdfWriter.getInstance(documento, archivo);
             documento.open();
 
-            /*Encabezado del pdf*/
+            //Encabezado del pdf
             Image imagen = Image.getInstance("src/vista/img/logo-pdf.jpg");
             Paragraph fecha = new Paragraph();
             Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLACK);
@@ -134,7 +134,7 @@ public class SistemaForm extends javax.swing.JFrame {
 
             documento.add(encabezado);
 
-            /*Informacion cliente*/
+            //Informacion cliente
             Paragraph cliente = new Paragraph();
             cliente.add(Chunk.NEWLINE);
             cliente.add("Datos de los clientes" + "\n\n");
@@ -176,7 +176,7 @@ public class SistemaForm extends javax.swing.JFrame {
             documento.add(tablaCliente);
 
             documento.add(Chunk.NEWLINE);
-            /*Informacion productos*/
+            //Informacion productos
             PdfPTable tablaProductos = new PdfPTable(5);
             tablaProductos.setWidthPercentage(100);
             tablaProductos.getDefaultCell().setBorder(0);
@@ -244,7 +244,7 @@ public class SistemaForm extends javax.swing.JFrame {
         } catch (DocumentException | IOException e) {
             System.out.println(e.toString());
         }
-    }
+    }*/
 
     private void listarDatos() {
         datosEmpresa = controladorProducto.buscarDatos();
@@ -2135,7 +2135,7 @@ public class SistemaForm extends javax.swing.JFrame {
 
         try {
             int id = Integer.parseInt(jTextField_IDVenta_Tab5.getText());
-            File file = new File("src/pdf/venta" + id + ".pdf");
+            File file = new File("pdf/venta" + id + ".pdf");
             Desktop.getDesktop().open(file);
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(SistemaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

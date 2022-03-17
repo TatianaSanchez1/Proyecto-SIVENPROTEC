@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.modelo;
 
-/**
- *
- * @author Personal
- */
 public class DatosEmpresa {
     private int id;
     private String nit;
@@ -29,10 +20,6 @@ public class DatosEmpresa {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNit() {
@@ -66,7 +53,5 @@ public class DatosEmpresa {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
-    
-    
+
 }

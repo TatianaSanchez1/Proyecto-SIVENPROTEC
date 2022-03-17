@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.modelo;
 
-/**
- *
- * @author Personal
- */
 public class Producto {
 
     private int id;
@@ -22,7 +13,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String codigo, String nombreProducto, int cantidad, float precioVenta, float precioCompra, String proveedor) {
+    public Producto(int id, String codigo, String nombreProducto, int cantidad, float precioVenta, float precioCompra, String proveedor) {
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;
         this.cantidad = cantidad;
@@ -86,5 +77,4 @@ public class Producto {
     public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
     }
-
 }

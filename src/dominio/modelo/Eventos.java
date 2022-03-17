@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.modelo;
 
 import java.awt.event.KeyEvent;
-import javax.swing.JTextField;
 
-/**
- *
- * @author Personal
- */
 public class Eventos {
     public void textKeyPress(KeyEvent evt){
         //declaramos una variable y le asignamos un evento

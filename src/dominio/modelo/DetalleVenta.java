@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.modelo;
 
-/**
- *
- * @author Personal
- */
 public class DetalleVenta {
     private int id;
     private String codigoProducto;
@@ -35,9 +26,7 @@ public class DetalleVenta {
         this.id = id;
     }
 
-    public String getCodigoProducto() {
-        return codigoProducto;
-    }
+    public String getCodigoProducto() { return codigoProducto; }
 
     public void setCodigoProducto(String codigoProducto) {
         this.codigoProducto = codigoProducto;
@@ -63,11 +52,4 @@ public class DetalleVenta {
         return idVenta;
     }
 
-    public void setIdVenta(int idVenta) {
-        this.idVenta = idVenta;
-    }
-    
-    
-    
-    
 }

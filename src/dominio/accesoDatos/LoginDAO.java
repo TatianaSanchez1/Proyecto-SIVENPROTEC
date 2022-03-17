@@ -1,21 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.accesoDatos;
 
+import dominio.modelo.Login;
 import infraestructura.ConexionBD;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import dominio.modelo.Login;
 
-/**
- *
- * @author Personal
- */
+
 public class LoginDAO {
 
     Connection conexion;
@@ -33,7 +26,7 @@ public class LoginDAO {
     ConexionBD con = new ConexionBD();
 
     public Login log(String correo, String contrasena) {
-        Login inicio = new Login();
+        Login inicio = null;
         String sql = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";
 
         try {
@@ -44,13 +37,17 @@ public class LoginDAO {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                inicio.setId(resultSet.getInt("id"));
-                inicio.setNombre(resultSet.getString("nombre"));
-                inicio.setCorreo(resultSet.getString("correo"));
-                inicio.setContrasena(resultSet.getString("contrasena"));
+                inicio = new Login(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("correo"),
+                        resultSet.getString("contrasena")
+                );
+
+
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         return inicio;
     }
@@ -69,7 +66,7 @@ public class LoginDAO {
             
             return true;
         } catch(SQLException e){
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         }
         

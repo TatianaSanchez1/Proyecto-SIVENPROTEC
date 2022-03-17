@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.accesoDatos;
 
 import dominio.modelo.DetalleVenta;
@@ -15,9 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Personal
- */
 public class VentaDAO {
 
 	private static VentaDAO instance;
@@ -134,13 +126,12 @@ public class VentaDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				Venta venta = new Venta();
-				venta.setId(resultSet.getInt("id"));
-				venta.setCliente(resultSet.getString("cliente"));
-				venta.setVendedor(resultSet.getString("vendedor"));
-				venta.setTotal(resultSet.getFloat("total"));
-
-				listaVentas.add(venta);
+				listaVentas.add(new Venta(
+						resultSet.getInt("id"),
+						resultSet.getString("cliente"),
+						resultSet.getString("vendedor"),
+						resultSet.getFloat("total")
+				));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -175,7 +166,7 @@ public class VentaDAO {
 				));
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		} finally {
 			try {
 				connection.close();
@@ -196,8 +187,7 @@ public class VentaDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
-				int cantidad = resultSet.getInt("cantidad");
-				if (cantidad < 5) {
+				if (resultSet.getInt("cantidad") < 5) {
 					return true;
 				} else {
 					return false;

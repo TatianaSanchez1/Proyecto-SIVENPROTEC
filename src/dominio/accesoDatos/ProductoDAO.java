@@ -1,23 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.accesoDatos;
 
 import dominio.modelo.DatosEmpresa;
 import dominio.modelo.Producto;
-import java.sql.*;
 import infraestructura.ConexionBD;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Personal
- */
 public class ProductoDAO {
     Connection connection;
     ConexionBD conexion = new ConexionBD();
@@ -53,7 +48,7 @@ public class ProductoDAO {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
     }
@@ -70,7 +65,7 @@ public class ProductoDAO {
                 proveedor.addItem(resultSet.getString("nombre"));
             }
         } catch(SQLException e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -84,19 +79,17 @@ public class ProductoDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Producto producto = new Producto();
-                producto.setId(resultSet.getInt("id"));
-                producto.setCodigo(resultSet.getString("codigoProducto"));
-                producto.setNombreProducto(resultSet.getString("nombre"));
-                producto.setCantidad(resultSet.getInt("cantidad"));
-                producto.setPrecioVenta(resultSet.getFloat("precioVenta"));
-                producto.setPrecioCompra(resultSet.getFloat("precioCompra"));
-                producto.setProveedor(resultSet.getString("proveedor"));
-
-                listaProductos.add(producto);
+                listaProductos.add(new Producto(
+                        resultSet.getInt("id"),
+                        resultSet.getString("codigoProducto"),
+                        resultSet.getString("nombre"),
+                        resultSet.getInt("cantidad"),
+                        resultSet.getFloat("precioVenta"),
+                        resultSet.getFloat("precioCompra"),
+                        resultSet.getString("proveedor")));
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         } finally {
             /**
              * liberar cualquier otro recurso de la base de datos que la
@@ -105,7 +98,7 @@ public class ProductoDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
         }
         return listaProductos;
@@ -122,7 +115,7 @@ public class ProductoDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         } finally {
             /**
@@ -132,7 +125,7 @@ public class ProductoDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
         }
     }
@@ -157,7 +150,7 @@ public class ProductoDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         } finally {
 
@@ -168,7 +161,7 @@ public class ProductoDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
 
         }
@@ -198,7 +191,7 @@ public class ProductoDAO {
     }
 
     public DatosEmpresa buscarDatos(){
-        DatosEmpresa datos = new DatosEmpresa();
+        DatosEmpresa datos = null;
         String sql = "SELECT * FROM config";
 
         try{
@@ -207,15 +200,16 @@ public class ProductoDAO {
             resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()){
-                datos.setId(resultSet.getInt("id"));
-                datos.setNit(resultSet.getString("nit"));
-                datos.setNombre(resultSet.getString("nombre"));
-                datos.setTelefono(resultSet.getString("telefono"));
-                datos.setDireccion(resultSet.getString("direccion"));
+                datos = new DatosEmpresa(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nit"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("telefono"),
+                        resultSet.getString("direccion"));
 
             }
         } catch(SQLException e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         return datos;
     }
@@ -237,7 +231,7 @@ public class ProductoDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         } finally {
 
@@ -248,7 +242,7 @@ public class ProductoDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
 
         }

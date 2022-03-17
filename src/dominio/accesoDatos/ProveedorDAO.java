@@ -1,19 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.accesoDatos;
 
 import dominio.modelo.Proveedor;
 import infraestructura.ConexionBD;
-import java.sql.*;
-import java.util.*;
 
-/**
- *
- * @author Personal
- */
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProveedorDAO {
     Connection connection;
     ConexionBD conexion = new ConexionBD();
@@ -36,13 +32,13 @@ public class ProveedorDAO {
             preparedStatement.execute();
             return true;
         } catch(SQLException e){
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         } finally{
             try{
                 connection.close();
             } catch(SQLException e){
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
     }
@@ -59,19 +55,17 @@ public class ProveedorDAO {
             resultSet = preparedStatement.executeQuery();
             
             while(resultSet.next()){
-                Proveedor proveedor = new Proveedor();
-                
-                proveedor.setId(resultSet.getInt("id"));
-                proveedor.setDocumentoProveedor(resultSet.getString("documento"));
-                proveedor.setNombreProveedor(resultSet.getString("nombre"));
-                proveedor.setDireccionProveedor(resultSet.getString("direccion"));
-                proveedor.setNumTelProveedor(resultSet.getString("telefono"));
-                proveedor.setCodigoProductoProveedor(resultSet.getString("codigoProducto"));
-                
-                listaProveedores.add(proveedor);
+                listaProveedores.add(new Proveedor(
+                        resultSet.getInt("id"),
+                        resultSet.getString("documento"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("direccion"),
+                        resultSet.getString("telefono"),
+                        resultSet.getString("codigoProducto")
+                ));
             }
         } catch(SQLException e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         return listaProveedores;
     }
@@ -88,7 +82,7 @@ public class ProveedorDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         } finally {
 
@@ -99,7 +93,7 @@ public class ProveedorDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
         }
     }
@@ -123,7 +117,7 @@ public class ProveedorDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         } finally {
 
@@ -134,7 +128,7 @@ public class ProveedorDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
 
         }

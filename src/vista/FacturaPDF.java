@@ -17,23 +17,27 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
 import dominio.controlador.ControladorCliente;
 import dominio.controlador.ControladorProducto;
 import dominio.controlador.ControladorVenta;
 import dominio.controlador.StrategyFactura;
 import dominio.modelo.DatosEmpresa;
+import dominio.modelo.DetalleVenta;
+import dominio.modelo.Producto;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class FacturaPDF implements StrategyFactura {
 
 	//Todo
 	/*
-	 * Utilizar patron Strategy para generar factura pdf
 	 * Utilizar patron Adapter para la libreria iText
 	 */
 
@@ -48,7 +52,7 @@ public class FacturaPDF implements StrategyFactura {
 				new ControladorVenta().buscarVenta(id).getCliente()
 			);
 			FileOutputStream archivo;
-			File file = new File("src/pdf/venta" + id + ".pdf");
+			File file = new File("pdf/venta" + id + ".pdf");
 
 			archivo = new FileOutputStream(file);
 
@@ -162,11 +166,10 @@ public class FacturaPDF implements StrategyFactura {
 			tablaProductos.addCell(producto4);
 			tablaProductos.addCell(producto5);
 
-			var ventaController = new ControladorVenta();
-			var listaDetalles = ventaController.listarDetalleVentas(id);
-			var productController = new ControladorProducto();
+			List<DetalleVenta> listaDetalles = controladorVenta.listarDetalleVentas(id);
+			ControladorProducto controladorProducto = new ControladorProducto();
 			listaDetalles.forEach(detalle -> {
-				var producto = productController.buscarProducto(detalle.getCodigoProducto());
+				Producto producto = controladorProducto.buscarProducto(detalle.getCodigoProducto());
 				tablaProductos.addCell(detalle.getCodigoProducto());
 				tablaProductos.addCell(producto.getNombreProducto());
 				tablaProductos.addCell(String.valueOf(detalle.getCantidad()));
@@ -178,7 +181,7 @@ public class FacturaPDF implements StrategyFactura {
 
 			Paragraph informacion = new Paragraph();
 			informacion.add(Chunk.NEWLINE);
-			informacion.add("Total a Pagar: " + totalPagar);
+			informacion.add("Total a Pagar: " + controladorVenta.buscarVenta(id).getTotal());
 			informacion.setAlignment(Element.ALIGN_RIGHT);
 			documento.add(informacion);
 

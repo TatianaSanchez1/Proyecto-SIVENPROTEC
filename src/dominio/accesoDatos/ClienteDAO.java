@@ -1,20 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio.accesoDatos;
 
-import infraestructura.ConexionBD;
-import java.sql.*;
-import java.util.*;
-import javax.swing.JOptionPane;
 import dominio.modelo.Cliente;
+import infraestructura.ConexionBD;
 
-/**
- *
- * @author Personal
- */
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+
 public class ClienteDAO {
 
     ConexionBD conexion = new ConexionBD();
@@ -57,7 +54,7 @@ public class ClienteDAO {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
     }
@@ -72,18 +69,17 @@ public class ClienteDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Cliente cliente = new Cliente();
-                cliente.setId(resultSet.getInt("id"));
-                cliente.setDocumentoCliente(resultSet.getString("documento"));
-                cliente.setNombreCliente(resultSet.getString("nombre"));
-                cliente.setNumTelCliente(resultSet.getString("telefono"));
-                cliente.setCorreoCliente(resultSet.getString("correo"));
-                cliente.setDireccionCliente(resultSet.getString("direccion"));
-
-                listaClientes.add(cliente);
+                listaClientes.add(new Cliente(
+                        resultSet.getInt("id"),
+                        resultSet.getString("documento"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("telefono"),
+                        resultSet.getString("correo"),
+                        resultSet.getString("direccion")
+                ));
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         } finally {
             /**
              * liberar cualquier otro recurso de la base de datos que la
@@ -92,7 +88,7 @@ public class ClienteDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
         }
         return listaClientes;
@@ -110,7 +106,7 @@ public class ClienteDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         } finally {
 
@@ -121,7 +117,7 @@ public class ClienteDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
         }
     }
@@ -145,7 +141,7 @@ public class ClienteDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             return false;
         } finally {
 
@@ -156,7 +152,7 @@ public class ClienteDAO {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println(ex.toString());
+                ex.printStackTrace();
             }
 
         }
