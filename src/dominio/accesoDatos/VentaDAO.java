@@ -82,20 +82,21 @@ public class VentaDAO {
 
 	}
 
-	public Integer idVenta() {
+	public int idVenta() {
 		String sql = "SELECT MAX(id) FROM ventas";
+		int id = 0;
 		try {
 			connection = conexion.getConexion();
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
-				return resultSet.getInt(1);
+				return id = resultSet.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return id;
 	}
 
 	public boolean actualizarStock(int cantidad, String codigo) {

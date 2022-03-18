@@ -22,6 +22,7 @@ import dominio.controlador.ControladorCliente;
 import dominio.controlador.ControladorProducto;
 import dominio.controlador.ControladorVenta;
 import dominio.controlador.StrategyFactura;
+import dominio.modelo.Cliente;
 import dominio.modelo.DatosEmpresa;
 import dominio.modelo.DetalleVenta;
 import dominio.modelo.Producto;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FacturaPDF implements StrategyFactura {
 
@@ -43,14 +45,16 @@ public class FacturaPDF implements StrategyFactura {
 
 	public void generarFactura() {
 		ControladorVenta controladorVenta = new ControladorVenta();
-		DatosEmpresa datosEmpresa = new DatosEmpresa();
 
 		float totalPagar = 0.0f;
 		try {
 			int id = controladorVenta.idVenta();
-			var datosCliente = new ControladorCliente().buscarClientePorNombre(
+			Cliente datosCliente = new ControladorCliente().buscarClientePorNombre(
 				new ControladorVenta().buscarVenta(id).getCliente()
 			);
+
+			DatosEmpresa datosEmpresa = new ControladorProducto().buscarDatos();
+
 			FileOutputStream archivo;
 			File file = new File("pdf/venta" + id + ".pdf");
 
@@ -77,6 +81,7 @@ public class FacturaPDF implements StrategyFactura {
 			encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
 			encabezado.addCell(imagen);
 
+			//Corregir datos porque no los coge
 			String NITEmpresa = datosEmpresa.getNit();
 			String nombreEmpresa = datosEmpresa.getNombre();
 			String telefonoEmpresa = datosEmpresa.getTelefono();
@@ -84,7 +89,7 @@ public class FacturaPDF implements StrategyFactura {
 
 			encabezado.addCell("");
 			encabezado.addCell("NIT: " + NITEmpresa + "\nNombre: "
-				+ nombreEmpresa + "\nTelefono: " + telefonoEmpresa + "\nDireccion: "
+				+ nombreEmpresa + "\nTeléfono: " + telefonoEmpresa + "\nDirección: "
 				+ direccionEmpresa);
 			encabezado.addCell(fecha);
 
@@ -107,7 +112,7 @@ public class FacturaPDF implements StrategyFactura {
 
 			PdfPCell cliente1 = new PdfPCell(new Phrase("Documento", negrita));
 			PdfPCell cliente2 = new PdfPCell(new Phrase("Nombre", negrita));
-			PdfPCell cliente3 = new PdfPCell(new Phrase("Telefono", negrita));
+			PdfPCell cliente3 = new PdfPCell(new Phrase("Teléfono", negrita));
 			PdfPCell cliente4 = new PdfPCell(new Phrase("Dirección", negrita));
 			PdfPCell cliente5 = new PdfPCell(new Phrase("Correo", negrita));
 
@@ -132,6 +137,7 @@ public class FacturaPDF implements StrategyFactura {
 			documento.add(tablaCliente);
 
 			documento.add(Chunk.NEWLINE);
+
 			//Informacion productos//
 			PdfPTable tablaProductos = new PdfPTable(5);
 			tablaProductos.setWidthPercentage(100);
@@ -181,7 +187,7 @@ public class FacturaPDF implements StrategyFactura {
 
 			Paragraph informacion = new Paragraph();
 			informacion.add(Chunk.NEWLINE);
-			informacion.add("Total a Pagar: " + controladorVenta.buscarVenta(id).getTotal());
+			informacion.add("Total a Pagar: " + String.format("%.2f", totalPagar(id)));
 			informacion.setAlignment(Element.ALIGN_RIGHT);
 			documento.add(informacion);
 
@@ -197,5 +203,18 @@ public class FacturaPDF implements StrategyFactura {
 		} catch (DocumentException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private float totalPagar(int id){
+		ControladorVenta controladorVenta = new ControladorVenta();
+
+		float totalPagar = 0.0f;
+
+		List<DetalleVenta> listaDetalles = controladorVenta.listarDetalleVentas(id);
+
+		for (DetalleVenta detalleVenta : listaDetalles) {
+			totalPagar += (detalleVenta.getPrecio() * detalleVenta.getCantidad());
+		}
+		return totalPagar;
 	}
 }

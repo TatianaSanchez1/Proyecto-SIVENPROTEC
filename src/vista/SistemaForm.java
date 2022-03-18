@@ -92,7 +92,7 @@ public class SistemaForm extends javax.swing.JFrame {
         listarDatos();
     }
 
-    /*private void pdf() {
+   /* private void pdf() {
         try {
             int id = controladorVenta.idVenta();
             FileOutputStream archivo;
@@ -244,7 +244,7 @@ public class SistemaForm extends javax.swing.JFrame {
         } catch (DocumentException | IOException e) {
             System.out.println(e.toString());
         }
-    }*/
+    } */
 
     private void listarDatos() {
         datosEmpresa = controladorProducto.buscarDatos();
@@ -269,7 +269,7 @@ public class SistemaForm extends javax.swing.JFrame {
 
     private void registrarVenta() {
         String cliente = jTextField_NombreCliente_Tab1.getText();
-        String vendedor = jLabel_NombreVendedor.getText();
+        String vendedor = "SIVENPROTEC";
         float total = totalPagar;
 
         venta.setCliente(cliente);
