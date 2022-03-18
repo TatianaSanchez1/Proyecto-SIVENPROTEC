@@ -180,7 +180,7 @@ public class FacturaPDF implements StrategyFactura {
 				tablaProductos.addCell(producto.getNombreProducto());
 				tablaProductos.addCell(String.valueOf(detalle.getCantidad()));
 				tablaProductos.addCell(String.valueOf(producto.getPrecioVenta()));
-				tablaProductos.addCell(String.valueOf(detalle.getCantidad() * producto.getPrecioVenta()));
+				tablaProductos.addCell(String.valueOf(detalle.getPrecio()));
 			});
 
 			documento.add(tablaProductos);
@@ -213,7 +213,7 @@ public class FacturaPDF implements StrategyFactura {
 		List<DetalleVenta> listaDetalles = controladorVenta.listarDetalleVentas(id);
 
 		for (DetalleVenta detalleVenta : listaDetalles) {
-			totalPagar += (detalleVenta.getPrecio() * detalleVenta.getCantidad());
+			totalPagar += (detalleVenta.getPrecio());
 		}
 		return totalPagar;
 	}

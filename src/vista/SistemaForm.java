@@ -284,7 +284,7 @@ public class SistemaForm extends javax.swing.JFrame {
         for (int i = 0; i < jTable_Venta_Tab1.getRowCount(); i++) {
             String codigo = jTable_Venta_Tab1.getValueAt(i, 0).toString();
             int cantidad = Integer.parseInt(jTable_Venta_Tab1.getValueAt(i, 2).toString());
-            float precio = Float.parseFloat(jTable_Venta_Tab1.getValueAt(i, 3).toString());
+            float precio = Float.parseFloat(jTable_Venta_Tab1.getValueAt(i, 4).toString());
 
             detalleVenta.setCodigoProducto(codigo);
             detalleVenta.setCantidad(cantidad);
