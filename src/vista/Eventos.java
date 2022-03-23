@@ -1,4 +1,4 @@
-package dominio.modelo;
+package vista;
 
 import java.awt.event.KeyEvent;
 

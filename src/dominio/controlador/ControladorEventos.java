@@ -1,6 +1,6 @@
 package dominio.controlador;
 
-import dominio.modelo.Eventos;
+import vista.Eventos;
 import java.awt.event.KeyEvent;
 
 public class ControladorEventos {
