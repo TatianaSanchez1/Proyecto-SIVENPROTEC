@@ -5,13 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
-	private static ConexionBD instance;
-	private static Connection connection;
 
 	/**
-	 * Se establece la conexión entre la base de datos
+	 * Establece la conexión entre la base de datos
 	 */
-	private ConexionBD() {
+	public Connection getConexion() {
 		Connection result = null;
 		try {
 			result = DriverManager.getConnection(
@@ -22,18 +20,6 @@ public class ConexionBD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		connection = result;
-	}
-
-	public static ConexionBD getInstance() {
-		if (instance == null) {
-			return new ConexionBD();
-		} else {
-			return instance;
-		}
-	}
-
-	public Connection getConexion() {
-		return connection;
+		return result;
 	}
 }

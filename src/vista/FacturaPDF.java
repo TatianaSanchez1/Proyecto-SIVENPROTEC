@@ -39,7 +39,7 @@ public class FacturaPDF implements StrategyFactura {
 	//Todo
 	/*
 	 * Utilizar patron Adapter para la libreria iText
-	 */
+	*/
 
 	public void generarFactura() {
 		ControladorVenta controladorVenta = new ControladorVenta();
