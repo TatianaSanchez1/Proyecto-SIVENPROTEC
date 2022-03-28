@@ -8,7 +8,7 @@ import vista.StrategyFactura;
 import java.util.List;
 
 public class ControladorVenta {
-	VentaDAO ventaDAO = VentaDAO.getInstance();
+	VentaDAO ventaDAO = new VentaDAO();
 
 
 	public int RegistrarVenta(Venta venta) {

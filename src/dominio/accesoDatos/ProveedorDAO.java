@@ -12,18 +12,18 @@ import java.util.List;
 
 public class ProveedorDAO {
     Connection connection;
-    ConexionBD conexion = new ConexionBD();
+    ConexionBD conexion = ConexionBD.getInstance();
     PreparedStatement preparedStatement;
     ResultSet resultSet;
-    
-    
+
+
     public boolean registrarProveedor(Proveedor proveedor){
         String sql = "INSERT INTO proveedores(documento,nombre,direccion,telefono,codigoProducto) VALUES (?,?,?,?,?)";
-        
+
         try{
             connection = conexion.getConexion();
             preparedStatement = connection.prepareStatement(sql);
-            
+
             preparedStatement.setString(1, proveedor.getDocumentoProveedor());
             preparedStatement.setString(2, proveedor.getNombreProveedor());
             preparedStatement.setString(3, proveedor.getDireccionProveedor());
@@ -42,18 +42,18 @@ public class ProveedorDAO {
             }
         }
     }
-    
+
     public List<Proveedor> listarProveedores(){
         List<Proveedor> listaProveedores = new ArrayList();
-        
+
         String sql = "SELECT * FROM proveedores";
-        
+
         try{
             connection = conexion.getConexion();
             preparedStatement = connection.prepareStatement(sql);
-            
+
             resultSet = preparedStatement.executeQuery();
-            
+
             while(resultSet.next()){
                 listaProveedores.add(new Proveedor(
                         resultSet.getInt("id"),
@@ -69,7 +69,7 @@ public class ProveedorDAO {
         }
         return listaProveedores;
     }
-    
+
     public boolean eliminarProveedor(int id){
         String sql = "DELETE FROM proveedores WHERE id = ?";
 
@@ -97,7 +97,7 @@ public class ProveedorDAO {
             }
         }
     }
-    
+
     public boolean actualizarProveedor(Proveedor proveedor){
         String sql = "UPDATE proveedores SET documento = ? ,nombre = ? ,"
                 + "direccion = ?, telefono = ?, codigoProducto = ? WHERE id = ?";

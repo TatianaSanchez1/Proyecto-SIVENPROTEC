@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 public class ProductoDAO {
     Connection connection;
-    ConexionBD conexion = new ConexionBD();
+    ConexionBD conexion = ConexionBD.getInstance();
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 

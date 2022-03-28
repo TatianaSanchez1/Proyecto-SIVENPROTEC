@@ -23,7 +23,7 @@ public class LoginDAO {
      */
     ResultSet resultSet;
 
-    ConexionBD con = new ConexionBD();
+    ConexionBD con = ConexionBD.getInstance();
 
     public Login log(String correo, String contrasena) {
         Login inicio = null;
@@ -49,24 +49,24 @@ public class LoginDAO {
         }
         return inicio;
     }
-    
+
     public boolean registrar(Login registro){
         String sql = "INSERT INTO usuarios(nombre, correo, contrasena) VALUES (?,?,?)";
-        
+
         try{
             conexion = con.getConexion();
             preparedStatement = conexion.prepareStatement(sql);
             preparedStatement.setString(1, registro.getNombre());
             preparedStatement.setString(2, registro.getCorreo());
             preparedStatement.setString(3, registro.getContrasena());
-            
+
             preparedStatement.execute();
-            
+
             return true;
         } catch(SQLException e){
             e.printStackTrace();
             return false;
         }
-        
+
     }
 }

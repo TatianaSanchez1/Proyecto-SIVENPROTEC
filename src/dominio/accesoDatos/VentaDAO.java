@@ -12,21 +12,10 @@ import java.util.List;
 
 public class VentaDAO {
 
-	private static VentaDAO instance;
-	private final ConexionBD conexion = new ConexionBD();
+	private final ConexionBD conexion = ConexionBD.getInstance();
 	int resultado;
 	private Connection connection;
 	private PreparedStatement preparedStatement;
-
-	private VentaDAO() {
-	}
-
-	public static VentaDAO getInstance() {
-		if (instance == null) {
-			instance = new VentaDAO();
-		}
-		return instance;
-	}
 
 	public int registrarVenta(Venta venta) {
 		String sql = "INSERT INTO ventas(cliente, vendedor, total) VALUES(?,?,?)";

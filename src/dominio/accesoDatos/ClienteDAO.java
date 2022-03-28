@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 public class ClienteDAO {
 
-    ConexionBD conexion = new ConexionBD();
+    ConexionBD conexion = ConexionBD.getInstance();
     Connection connection;
 
     /**
