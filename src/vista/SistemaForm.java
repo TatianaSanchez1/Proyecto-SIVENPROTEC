@@ -1648,7 +1648,7 @@ public class SistemaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField_NombreCliente_Tab1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NombreCliente_Tab1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField_NombreCliente_Tab1ActionPerformed
 
     private void jButton_GuardarCliente_Tab2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarCliente_Tab2ActionPerformed
@@ -2072,7 +2072,7 @@ public class SistemaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_NuevaVentaActionPerformed
 
     private void jComboBox_ProveedorProducto_Tab4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_ProveedorProducto_Tab4ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jComboBox_ProveedorProducto_Tab4ActionPerformed
 
     private void jTextField_CodigoProducto_Tab1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CodigoProducto_Tab1KeyTyped

@@ -1,4 +1,4 @@
-package dominio.controlador;
+package vista;
 
 public interface StrategyFactura {
 	void generarFactura();

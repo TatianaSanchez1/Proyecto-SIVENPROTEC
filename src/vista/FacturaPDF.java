@@ -21,7 +21,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import dominio.controlador.ControladorCliente;
 import dominio.controlador.ControladorProducto;
 import dominio.controlador.ControladorVenta;
-import dominio.controlador.StrategyFactura;
 import dominio.modelo.Cliente;
 import dominio.modelo.DatosEmpresa;
 import dominio.modelo.DetalleVenta;
@@ -34,7 +33,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class FacturaPDF implements StrategyFactura {
 

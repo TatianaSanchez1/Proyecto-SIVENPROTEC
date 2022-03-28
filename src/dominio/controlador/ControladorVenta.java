@@ -3,6 +3,8 @@ package dominio.controlador;
 import dominio.accesoDatos.VentaDAO;
 import dominio.modelo.DetalleVenta;
 import dominio.modelo.Venta;
+import vista.StrategyFactura;
+
 import java.util.List;
 
 public class ControladorVenta {
