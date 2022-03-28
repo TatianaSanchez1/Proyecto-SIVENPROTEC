@@ -59,7 +59,7 @@ public class ClienteDAO {
         }
     }
 
-    public List listarClientes() {
+    public List<Cliente> listarClientes() {
         List<Cliente> listaClientes = new ArrayList();
         String sql = "SELECT * FROM clientes";
 
@@ -195,7 +195,7 @@ public class ClienteDAO {
             resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()){
-                cliente.setDocumentoCliente(resultSet.getString(("documento")));
+                cliente.setDocumentoCliente(resultSet.getString("documento"));
                 cliente.setNombreCliente(resultSet.getString("nombre"));
                 cliente.setNumTelCliente(resultSet.getString("telefono"));
                 cliente.setCorreoCliente(resultSet.getString("correo"));

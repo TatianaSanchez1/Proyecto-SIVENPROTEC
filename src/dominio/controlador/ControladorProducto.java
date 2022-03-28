@@ -14,7 +14,6 @@ public class ControladorProducto {
     
     
     public boolean registrarProducto(Producto producto){
-        //verificar existencia
         return productoDAO.registrarProducto(producto);
     }
     

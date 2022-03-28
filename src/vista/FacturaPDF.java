@@ -79,7 +79,6 @@ public class FacturaPDF implements StrategyFactura {
 			encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
 			encabezado.addCell(imagen);
 
-			//Corregir datos porque no los coge
 			String NITEmpresa = datosEmpresa.getNit();
 			String nombreEmpresa = datosEmpresa.getNombre();
 			String telefonoEmpresa = datosEmpresa.getTelefono();
@@ -93,7 +92,7 @@ public class FacturaPDF implements StrategyFactura {
 
 			documento.add(encabezado);
 
-			//Informacion cliente//
+			//Informacion cliente
 			Paragraph cliente = new Paragraph();
 			cliente.add(Chunk.NEWLINE);
 			cliente.add("Datos de los clientes" + "\n\n");
@@ -106,7 +105,6 @@ public class FacturaPDF implements StrategyFactura {
 			float[] columnaCliente = new float[]{30f, 50f, 40f, 40f, 50f};
 			tablaCliente.setWidths(columnaCliente);
 			tablaCliente.setHorizontalAlignment(Element.ALIGN_LEFT);
-			//tablaCliente.addCell(imagen);
 
 			PdfPCell cliente1 = new PdfPCell(new Phrase("Documento", negrita));
 			PdfPCell cliente2 = new PdfPCell(new Phrase("Nombre", negrita));
@@ -136,7 +134,7 @@ public class FacturaPDF implements StrategyFactura {
 
 			documento.add(Chunk.NEWLINE);
 
-			//Informacion productos//
+			//Informacion productos
 			PdfPTable tablaProductos = new PdfPTable(5);
 			tablaProductos.setWidthPercentage(100);
 			tablaProductos.getDefaultCell().setBorder(0);

@@ -43,7 +43,7 @@ public class ProveedorDAO {
         }
     }
     
-    public List listarProveedores(){
+    public List<Proveedor> listarProveedores(){
         List<Proveedor> listaProveedores = new ArrayList();
         
         String sql = "SELECT * FROM proveedores";

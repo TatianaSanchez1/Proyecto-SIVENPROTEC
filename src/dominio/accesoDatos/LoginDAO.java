@@ -43,8 +43,6 @@ public class LoginDAO {
                         resultSet.getString("correo"),
                         resultSet.getString("contrasena")
                 );
-
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
