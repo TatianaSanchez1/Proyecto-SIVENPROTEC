@@ -5,21 +5,35 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
+	private static ConexionBD instance;
+	private static Connection connection;
 
 	/**
-	 * Establece la conexión entre la base de datos
+	 * Se establece la conexión entre la base de datos
 	 */
-	public Connection getConexion() {
+	private ConexionBD() {
 		Connection result = null;
 		try {
 			result = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/sivenprotec?serverTimezone=UTC",
-				"root",
-				""
+					"jdbc:mysql://localhost:3306/sivenprotec?serverTimezone=UTC",
+					"root",
+					""
 			);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return result;
+		connection = result;
+	}
+
+	public static ConexionBD getInstance() {
+		if (instance == null) {
+			return new ConexionBD();
+		} else {
+			return instance;
+		}
+	}
+
+	public Connection getConexion() {
+		return connection;
 	}
 }

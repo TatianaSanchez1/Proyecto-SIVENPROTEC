@@ -11,7 +11,7 @@ public class ControladorVenta {
 	VentaDAO ventaDAO = new VentaDAO();
 
 
-	public int RegistrarVenta(Venta venta) {
+	public int registrarVenta(Venta venta) {
 		return ventaDAO.registrarVenta(venta);
 	}
 

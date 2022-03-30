@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class LoginDAO {
 
-    Connection conexion;
+    Connection connection;
 
     /**
      * consulta a sistemas de bases de datos en lenguaje SQL
@@ -23,15 +23,15 @@ public class LoginDAO {
      */
     ResultSet resultSet;
 
-    ConexionBD con = ConexionBD.getInstance();
+    ConexionBD conexion = ConexionBD.getInstance();
 
     public Login log(String correo, String contrasena) {
         Login inicio = null;
         String sql = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";
 
         try {
-            conexion = con.getConexion();
-            preparedStatement = conexion.prepareStatement(sql);
+            connection = conexion.getConexion();
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, correo);
             preparedStatement.setString(2, contrasena);
             resultSet = preparedStatement.executeQuery();
@@ -54,8 +54,8 @@ public class LoginDAO {
         String sql = "INSERT INTO usuarios(nombre, correo, contrasena) VALUES (?,?,?)";
 
         try{
-            conexion = con.getConexion();
-            preparedStatement = conexion.prepareStatement(sql);
+            connection = conexion.getConexion();
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, registro.getNombre());
             preparedStatement.setString(2, registro.getCorreo());
             preparedStatement.setString(3, registro.getContrasena());

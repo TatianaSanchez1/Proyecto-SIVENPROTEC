@@ -36,15 +36,9 @@ import java.util.List;
 
 public class FacturaPDF implements StrategyFactura {
 
-	//Todo
-	/*
-	 * Utilizar patron Adapter para la libreria iText
-	*/
-
 	public void generarFactura() {
 		ControladorVenta controladorVenta = new ControladorVenta();
 
-		float totalPagar = 0.0f;
 		try {
 			int id = controladorVenta.idVenta();
 			Cliente datosCliente = new ControladorCliente().buscarClientePorNombre(

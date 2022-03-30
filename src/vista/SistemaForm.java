@@ -5,8 +5,6 @@
  */
 package vista;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
 import dominio.modelo.Cliente;
 import dominio.modelo.DatosEmpresa;
 import dominio.modelo.DetalleVenta;
@@ -18,9 +16,7 @@ import dominio.modelo.Venta;
 import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -276,7 +272,7 @@ public class SistemaForm extends javax.swing.JFrame {
         venta.setVendedor(vendedor);
         venta.setTotal(total);
 
-        controladorVenta.RegistrarVenta(venta);
+        controladorVenta.registrarVenta(venta);
     }
 
     private void registrarDetalle() {
