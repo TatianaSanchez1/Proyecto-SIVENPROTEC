@@ -14,6 +14,7 @@ public class Producto {
     }
 
     public Producto(int id, String codigo, String nombreProducto, int cantidad, float precioVenta, float precioCompra, String proveedor) {
+        this.id = id;
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;
         this.cantidad = cantidad;
