@@ -39,17 +39,6 @@ public class ProductoDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
             return false;
-        } finally {
-
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -90,16 +79,6 @@ public class ProductoDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
         return listaProductos;
     }
@@ -117,16 +96,6 @@ public class ProductoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
@@ -152,18 +121,6 @@ public class ProductoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
         }
     }
 
@@ -233,18 +190,6 @@ public class ProductoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
         }
     }
 

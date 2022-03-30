@@ -50,12 +50,13 @@ public class ClienteDAO {
             /**
              * liberar cualquier otro recurso de la base de datos que la
              * conexión pueda estar reteniendo.
-             */
+
             try {
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+             */
         }
     }
 
@@ -80,16 +81,6 @@ public class ClienteDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
         return listaClientes;
     }
@@ -108,17 +99,6 @@ public class ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
@@ -143,18 +123,6 @@ public class ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
         }
     }
 

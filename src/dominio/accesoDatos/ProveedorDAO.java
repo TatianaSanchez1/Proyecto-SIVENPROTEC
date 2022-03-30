@@ -34,12 +34,6 @@ public class ProveedorDAO {
         } catch(SQLException e){
             e.printStackTrace();
             return false;
-        } finally{
-            try{
-                connection.close();
-            } catch(SQLException e){
-                e.printStackTrace();
-            }
         }
     }
 
@@ -84,17 +78,6 @@ public class ProveedorDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
@@ -119,18 +102,6 @@ public class ProveedorDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-
-            /**
-             * liberar cualquier otro recurso de la base de datos que la
-             * conexión pueda estar reteniendo.
-             */
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
         }
     }
 }

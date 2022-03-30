@@ -34,14 +34,7 @@ public class VentaDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
-
 		return resultado;
 	}
 
@@ -61,14 +54,7 @@ public class VentaDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
-
 		return resultado;
 
 	}
@@ -127,16 +113,6 @@ public class VentaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			/**
-			 * liberar cualquier otro recurso de la base de datos que la
-			 * conexión pueda estar reteniendo.
-			 */
-			try {
-				connection.close();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
 		return listaVentas;
 	}
@@ -159,12 +135,6 @@ public class VentaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
 		return listaDetalleVentas;
 	}
